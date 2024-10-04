@@ -1,0 +1,37 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/checkmate-front/node_modules
+/checkmate-front/.pnp
+/checkmate-front/.pnp.js
+/checkmate-front/.yarn/install-state.gz
+
+# testing
+/checkmate-front/coverage
+
+# next.js
+/checkmate-front/.next/
+/checkmate-front/out/
+
+# production
+/checkmate-front/build
+
+# misc
+/checkmate-front/.DS_Store
+/checkmate-front/*.pem
+
+# debug
+/checkmate-front/npm-debug.log*
+/checkmate-front/yarn-debug.log*
+/checkmate-front/yarn-error.log*
+
+# local env files
+/checkmate-front/.env
+/checkmate-front/.env*.local
+
+# vercel
+/checkmate-front/.vercel
+
+# typescript
+/checkmate-front/*.tsbuildinfo
+/checkmate-front/next-env.d.ts
