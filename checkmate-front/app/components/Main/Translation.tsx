@@ -1,6 +1,6 @@
 'use client'
 
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useMemo, useState} from 'react';
 import OpenAI from "openai";
 import DiffMatchPatch from 'diff-match-patch';
 import Loader from '../Shared/Loader';
@@ -53,8 +53,6 @@ const Main = ()=> {
         // const message = data.text;
 
         const message = "She did not go to the market."
-        const diff = dmp.diff_main(text, message);
-        console.log(diff);
         setFixedText(message)
 
         setFixed(false);
@@ -83,6 +81,30 @@ const Main = ()=> {
     const handleSubmit = () => {
         callOpenAi()
     }
+
+    const createHTMLWithDiff = (diff: [number, string][]) => {
+        let result = '';
+
+        diff.forEach(([operation, char]) => {
+            switch (operation) {
+                case -1: // 삭제된 경우
+                    result += `<span class="underline-red">${char}</span>`;
+                    break;
+                case 1: // 추가된 경우
+                    result += `<span class="underline-green">${char}</span>`;
+                    break;
+                case 0: // 변화 없는 경우
+                    result += char;
+                    break;
+            }
+        });
+
+        return result;
+    }
+
+    const resultText = useMemo(() => {
+        return `${createHTMLWithDiff(dmp.diff_main(text, fixedText))}`
+    }, [fixedText]);
 
     useEffect(() => {
         if (loading || !fixed) return;
@@ -120,11 +142,7 @@ const Main = ()=> {
                 </div>
             </div>
             <div className={'result_box right'}>
-                <textarea
-                    className={'textarea'}
-                    value={fixedText}
-                    readOnly={true}
-                />
+                <div className={'textarea'}><div dangerouslySetInnerHTML={{__html: resultText}}></div></div>
                 <div className={'buttons flex_right'}>
                     <button onClick={handleSave}>저장</button>
                 </div>

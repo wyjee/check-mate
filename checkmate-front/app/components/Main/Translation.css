@@ -21,3 +21,34 @@
         border-radius: 0px 16px 16px 0px;
     }
 }
+
+/* Color Indication */
+/* red rgb(234, 21, 55) */
+/* yellow rgb(255, 201, 64) */
+/* green rgb(17, 166, 131) */
+/* blue rgb(153, 194, 255) */
+
+.underline-red {
+    text-decoration: line-through rgb(234, 21, 55);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+    padding: 0px 2px 0px 0px;
+}
+
+.underline-yellow {
+    text-decoration: underline rgb(255, 201, 64);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 3px;
+}
+
+.underline-green {
+    text-decoration: underline rgb(17, 166, 131);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 3px;
+}
+
+.underline-blue {
+    text-decoration: underline rgb(153, 194, 255);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 3px;
+}
