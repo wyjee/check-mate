@@ -2,23 +2,25 @@
 
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import OpenAI from "openai";
-import Loader from './Loader';
+import DiffMatchPatch from 'diff-match-patch';
+import Loader from '../Shared/Loader';
+import './Translation.css'
 
-import './index.css';
-
-const configuration = {
+const config = {
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true
 };
-const openai = new OpenAI(configuration);
+const openai = new OpenAI(config);
 const openaiModel = 'gpt-3.5-turbo'
+
+const dmp = new DiffMatchPatch();
 
 const Main = ()=> {
     const [text, setText] = useState("");
     const [fixedText, setFixedText] = useState("");
     const [words, setWords] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [corrected, setFixed] = useState(false);
+    const [fixed, setFixed] = useState(false);
     const [language, setLanguage] = useState("en");
     const langPairs: {
         [key: string]: string
@@ -29,6 +31,7 @@ const Main = ()=> {
 
     const callOpenAi = async () => {
 
+        setFixed(true);
         const params = {
             model: openaiModel,
             messages: [
@@ -38,7 +41,7 @@ const Main = ()=> {
                 },
                 {
                     "role": "user",
-                    "content": "She no went to the market."
+                    "content": text
                 }
             ],
             temperature: 0.7,
@@ -50,7 +53,11 @@ const Main = ()=> {
         // const message = data.text;
 
         const message = "She did not go to the market."
+        const diff = dmp.diff_main(text, message);
+        console.log(diff);
         setFixedText(message)
+
+        setFixed(false);
 
     }
 
@@ -75,59 +82,53 @@ const Main = ()=> {
 
     const handleSubmit = () => {
         callOpenAi()
-        setFixed(true);
     }
 
     useEffect(() => {
-        if (loading || !corrected) return;
+        if (loading || !fixed) return;
 
         try {
             setLoading(true);
         } catch (error) {
             return console.error(`[ERROR] ${error}`);
         }
-    }, [corrected]);
+    }, [fixed]);
 
     return (
-        <div className={'flex_col'}>
-            <div className={'flex_row'}>
-                <div className={'translation_box left'}>
-                    <textarea
-                        className={'textarea'}
-                        placeholder="내용을 입력해주세요."
-                        onChange={handleTextChange}
-                        value={text}
-                    />
+        <div className={'flex_row'}>
+            <div className={'translation_box left'}>
+                <textarea
+                    className={'textarea'}
+                    placeholder="내용을 입력해주세요."
+                    onChange={handleTextChange}
+                    value={text}
+                />
 
-                    <div className="buttons">
-                        <span className={'left'}>글자 수: {words}</span>
-                        <div className={'right'}>
-                            <button type="button" onClick={handleInitialization}>
-                                입력창 초기화
-                            </button>
-                            <button type="button"
-                                    disabled={!words}
-                                    onClick={handleSubmit}
-                            >
-                                {!loading ? <span>첨삭</span> : <Loader/>}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div className={'result_box right'}>
-                    <textarea
-                        className={'textarea'}
-                        value={fixedText}
-                        readOnly={true}
-                    />
-                    <div className={'buttons flex_right'}>
-                        <button onClick={handleSave}>저장</button>
+                <div className="buttons">
+                    <span className={'left'}>글자 수: {words}</span>
+                    <div className={'right'}>
+                        <button type="button" onClick={handleInitialization}>
+                            입력창 초기화
+                        </button>
+                        <button type="button"
+                                disabled={!words}
+                                onClick={handleSubmit}
+                        >
+                            {!loading ? <span>첨삭</span> : <Loader/>}
+                        </button>
                     </div>
                 </div>
             </div>
-
-            {/* HISTORY COMPONENT */}
-            <div className={'content'}></div>
+            <div className={'result_box right'}>
+                <textarea
+                    className={'textarea'}
+                    value={fixedText}
+                    readOnly={true}
+                />
+                <div className={'buttons flex_right'}>
+                    <button onClick={handleSave}>저장</button>
+                </div>
+            </div>
         </div>
     )
 }

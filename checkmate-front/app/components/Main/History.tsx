@@ -1,5 +1,5 @@
 const History = () => {
-    return (<></>);
+    return (<div>History</div>);
 }
 
 export default History;
