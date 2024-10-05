@@ -1,37 +1,23 @@
-.textarea {
+.translation_box,
+.result_box {
     width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-}
-
-.translation_box {
-    width: 100%;
-    height: 24px;
+    min-height: 24rem;
     border: 1px solid #161A30;
     border-radius: 10px;
     padding: 16px 16px 51px 16px;
-    min-height: 24rem;
 }
 
 @media (min-width: 768px) {
-    .translation_box {
+    .translation_box,
+    .result_box {
         width: 100%;
     }
-}
 
-.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    height: 51px;
-}
+    .translation_box {
+        border-radius: 16px 0px 0px 16px;
+    }
 
-.buttons button {
-    border: 1px solid #161A30;
-    height: 32px;
-    padding: 0 8px 0 8px;
-    margin: 0 0 0 8px;
-    border-radius: 4px;
+    .result_box {
+        border-radius: 0px 16px 16px 0px;
+    }
 }
