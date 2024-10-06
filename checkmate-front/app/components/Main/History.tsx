@@ -1,32 +1,13 @@
 'use client'
 
 import React, {useEffect} from 'react';
-import './History.css'
-import dayjs from "dayjs";
+import axios from 'axios';
+import dayjs from 'dayjs';
+import {createHTMLWithDiff} from '@/app/lib/CreateHtmlWithDiff'
 import {IHistory} from '@/app/types/History';
-import axios from "axios";
+import './History.css'
 
 const History = ({history, getHistory}: {history: IHistory[]; getHistory: ()=>void; }) => {
-    const createHTMLWithDiff = (diff: [number, string][]) => {
-        let result = '';
-
-        diff.forEach(([operation, char]) => {
-            switch (operation) {
-                case -1: // 삭제된 경우
-                    result += `<span class="underline-red">${char}</span>`;
-                    break;
-                case 1: // 추가된 경우
-                    result += `<span class="underline-green">${char}</span>`;
-                    break;
-                case 0: // 변화 없는 경우
-                    result += char;
-                    break;
-            }
-        });
-
-        return result;
-    }
-
     const handleDelete = (id: number)=> async ()=> {
         try {
             await axios.delete(`http://localhost:8000/history/${id}`);

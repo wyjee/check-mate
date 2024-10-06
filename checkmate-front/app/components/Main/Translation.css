@@ -3,7 +3,7 @@
     position: relative;
     width: 100%;
     min-height: 24rem;
-    padding: 16px 16px 51px 16px;
+    padding: 16px 16px 88px 16px;
 }
 
 @media (min-width: 768px) {
@@ -44,7 +44,6 @@
 @media (min-width: 768px) {
     .result_box {
         border: none;
-        border-top: 1px solid rgba(198,203,222,.45);
         border-left: 1px solid rgba(198,203,222,.45);
     }
 }
@@ -85,4 +84,34 @@
     text-decoration: underline rgb(153, 194, 255);
     text-underline-offset: 4px;
     text-decoration-thickness: 3px;
+}
+
+.tags {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 24px;
+}
+
+.tags .tag:before {
+    content: '#';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 16px;
+}
+
+.tags .tag {
+    position: relative;
+    font-size: 10px;
+    line-height: 18px;
+    border-radius: 48px;
+    border: 1px solid rgba(198,203,222,.45);
+    padding: 2px 16px 2px 28px;
+    margin: 0px 0px 0px 8px;
+    cursor: pointer;
+}
+
+.tags .tag.marked {
+    background: rgb(153, 194, 255);
 }

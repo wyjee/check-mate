@@ -93,7 +93,7 @@ textarea {
   flex-direction: row;
 }
 
-.flex_right {
+.flex_end {
   display: flex;
   justify-content: flex-end;
 }
