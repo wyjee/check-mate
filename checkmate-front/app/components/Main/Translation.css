@@ -1,9 +1,8 @@
 .translation_box,
 .result_box {
+    position: relative;
     width: 100%;
     min-height: 24rem;
-    border: 1px solid #161A30;
-    border-radius: 10px;
     padding: 16px 16px 51px 16px;
 }
 
@@ -22,11 +21,46 @@
     }
 }
 
-/* Color Indication */
-/* red rgb(234, 21, 55) */
-/* yellow rgb(255, 201, 64) */
-/* green rgb(17, 166, 131) */
-/* blue rgb(153, 194, 255) */
+.translation_area {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(198,203,222,.45);
+    border-radius: 16px;
+    margin: 0px 0px 56px 0px;
+}
+
+@media (min-width: 768px) {
+    .translation_area {
+        display: flex;
+        flex-direction: row;
+        margin: 0px 0px 72px 0px;
+    }
+}
+
+.result_box {
+    border-top: 1px solid rgba(198,203,222,.45);
+}
+
+@media (min-width: 768px) {
+    .result_box {
+        border: none;
+        border-top: 1px solid rgba(198,203,222,.45);
+        border-left: 1px solid rgba(198,203,222,.45);
+    }
+}
+
+.buttons {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 0px 16px 0px 16px;
+}
+
+/*  ### Color Indication ###
+    red rgb(234, 21, 55)
+    yellow rgb(255, 201, 64)
+    green rgb(17, 166, 131)
+    blue rgb(153, 194, 255) */
 
 .underline-red {
     text-decoration: line-through rgb(234, 21, 55);

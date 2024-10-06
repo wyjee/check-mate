@@ -117,8 +117,8 @@ const Main = ()=> {
     }, [fixed]);
 
     return (
-        <div className={'flex_row'}>
-            <div className={'translation_box left'}>
+        <div className={'translation_area flex_row'}>
+            <div className={'translation_box'}>
                 <textarea
                     className={'textarea'}
                     placeholder="내용을 입력해주세요."
@@ -127,8 +127,8 @@ const Main = ()=> {
                 />
 
                 <div className="buttons">
-                    <span className={'left'}>글자 수: {words}</span>
-                    <div className={'right'}>
+                    <span>글자 수: {words}</span>
+                    <div>
                         <button type="button" onClick={handleInitialization}>
                             입력창 초기화
                         </button>
@@ -141,7 +141,7 @@ const Main = ()=> {
                     </div>
                 </div>
             </div>
-            <div className={'result_box right'}>
+            <div className={'result_box'}>
                 <div className={'textarea'}><div dangerouslySetInnerHTML={{__html: resultText}}></div></div>
                 <div className={'buttons flex_right'}>
                     <button onClick={handleSave}>저장</button>

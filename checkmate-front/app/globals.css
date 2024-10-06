@@ -69,7 +69,7 @@ a {
 }
 
 .buttons button {
-  border: 1px solid #161A30;
+  border: 1px solid rgba(198,203,222,.45);
   height: 32px;
   padding: 0 8px 0 8px;
   margin: 0 0 0 8px;
