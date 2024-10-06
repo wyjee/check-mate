@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import DiffMatchPatch from 'diff-match-patch';
 import Loader from '../Shared/Loader';
 import './Translation.css'
+import axios from "axios";
 
 const config = {
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -15,7 +16,7 @@ const openaiModel = 'gpt-3.5-turbo'
 
 const dmp = new DiffMatchPatch();
 
-const Main = ()=> {
+const Main = (props: any)=> {
     const [text, setText] = useState("");
     const [fixedText, setFixedText] = useState("");
     const [words, setWords] = useState(0);
@@ -69,8 +70,16 @@ const Main = ()=> {
         return matches ? matches.length : 0;
     }
 
-    const handleSave= () => {
+    const handleSave= async () => {
+        if (!text) return alert('입력된 내용이 존재하지 않습니다.\n첨삭 받을 내용을 입력해 첨삭 결과를 저장해보세요.');
+        if (!fixedText) return alert('첨삭 결과가 존재하지 않습니다. 첨삭 버튼을 눌러 첨삭 내용을 저장해보세요.');
+        const response = await axios.post('http://localhost:8000/history', {
+            text: text,
+            diff: dmp.diff_main(text, fixedText)
+        })
+        console.log('저장 결과',response)
         alert('저장되었습니다.')
+        await props.getHistory();
     }
 
     const handleInitialization = () => {

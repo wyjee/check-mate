@@ -1,28 +1,14 @@
 'use client'
 
-import React, {useEffect, useMemo, useState} from 'react';
-import axios from 'axios';
+import React, {useEffect} from 'react';
 import './History.css'
-import DiffMatchPatch from "diff-match-patch";
 import dayjs from "dayjs";
+import {IHistory} from '@/app/types/History';
 
-interface History {
-    id: number;
-    text: string;
-    diff: [number, string][];
-    created_at: string;
-};
-
-const dmp = new DiffMatchPatch();
-
-const History = () => {
-    const [history, setHistory] = useState<History[]>([])
-
-    const getHistory = async ()=> {
-        const {data} = await axios.get('http://localhost:8000/history');
-        setHistory(data);
-        console.log(data)
-    }
+const History = ({history, getHistory}: {history: IHistory[]; getHistory: ()=>void; }) => {
+    useEffect(() => {
+        console.log('props changed',history)
+    }, [history]);
 
     const createHTMLWithDiff = (diff: [number, string][]) => {
         let result = '';
@@ -51,7 +37,7 @@ const History = () => {
         <>
             <div className={'tab'}>History</div>
             <div className={'history_area'}>
-                {history?.map(({id, text, diff, created_at}: History) => {
+                {history?.map(({id, text, diff, created_at}: IHistory) => {
                     const resultText = `${createHTMLWithDiff(diff)}`
 
                     return (<div className={'history_box flex_row'} key={id}>
