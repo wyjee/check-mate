@@ -77,19 +77,28 @@ const Main = (props: any)=> {
             text: text,
             diff: dmp.diff_main(text, fixedText)
         })
-        console.log('저장 결과',response)
-        alert('저장되었습니다.')
+        alert('저장되었습니다.');
         await props.getHistory();
     }
 
     const handleInitialization = () => {
         setText('');
-        setWords(countWords(text));
+        setWords(0);
     }
 
     const handleSubmit = () => {
-        callOpenAi()
-    }
+        callOpenAi();
+    };
+
+    const handleCopy = async () => {
+        if(!fixedText) return alert('첨삭 결과가 존재하지 않습니다. 첨삭 버튼을 눌러 첨삭 내용을 저장해보세요.')
+        try {
+            await navigator.clipboard.writeText(fixedText);
+            alert('클립보드에 복사되었습니다.');
+        } catch (error) {
+            console.error('[ERROR] ', error);
+        }
+    };
 
     const createHTMLWithDiff = (diff: [number, string][]) => {
         let result = '';
@@ -138,12 +147,13 @@ const Main = (props: any)=> {
                 <div className="buttons">
                     <span>글자 수: {words}</span>
                     <div>
-                        <button type="button" onClick={handleInitialization}>
+                        <button type="button" onClick={handleInitialization} className={'button'} >
                             입력창 초기화
                         </button>
                         <button type="button"
                                 disabled={!words}
                                 onClick={handleSubmit}
+                                className={'button'}
                         >
                             {!loading ? <span>첨삭</span> : <Loader/>}
                         </button>
@@ -153,7 +163,8 @@ const Main = (props: any)=> {
             <div className={'result_box'}>
                 <div className={'textarea'}><div dangerouslySetInnerHTML={{__html: resultText}}></div></div>
                 <div className={'buttons flex_right'}>
-                    <button onClick={handleSave}>저장</button>
+                    <button onClick={handleSave} className={'button'}>저장</button>
+                    <button onClick={handleCopy} className={'button'}>복사</button>
                 </div>
             </div>
         </div>

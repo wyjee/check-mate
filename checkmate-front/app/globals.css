@@ -17,7 +17,7 @@ body {
 }
 
 body {
-  color: var(--foreground);
+  color: #161A30;
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -58,6 +58,7 @@ a {
   height: 100%;
   border: none;
   outline: none;
+  color: #161A30;
 }
 
 .buttons {
@@ -68,13 +69,14 @@ a {
   height: 51px;
 }
 
-.buttons button {
+.button {
   border: 1px solid rgba(198,203,222,.45);
   height: 32px;
   padding: 0 8px 0 8px;
   margin: 0 0 0 8px;
   border-radius: 4px;
-  background: #F0ECE5;
+  background: #ffffff;
+  color: #161A30;
 }
 
 textarea {

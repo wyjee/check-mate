@@ -1,7 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    async redirects() {
+    // async redirects() {
+    //     return [
+    //     ]
+    // },
+    async headers() {
         return [
+            {
+                source: '/:path*',
+                headers: [
+                    {
+                        key: 'hello',
+                        value: 'world',
+                    },
+                ],
+            },
         ]
     },
 };

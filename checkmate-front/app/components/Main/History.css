@@ -3,15 +3,34 @@
     border: 1px solid rgba(198,203,222,.45);
     border-radius: 4px;
     border-top-left-radius: 0px;
-    padding: 48px 48px 16px 48px;
+    padding: 32px 48px 16px 48px;
 }
 
 .history_box {
     width: 100%;
+    padding: 32px 0px 32px 0px;
+    border-bottom: 1px solid rgba(198,203,222,.45);
+}
+
+.history_box:first-child {
     padding: 0px 0px 32px 0px;
 }
 
+.history_box:last-child {
+    border-bottom: none;
+}
+
+.history_box .bottom-left {
+    text-align: left;
+    padding: 16px 0px 0px 0px;
+}
+
+.history_box .flex_item.flex_col {
+    padding: 0px 48px 0px 0px;
+}
+
 .flex_item {
+    position: relative;
     width: 50%;
 }
 
@@ -25,7 +44,7 @@
     display: flex;
     justify-content: flex-end;
     position: relative;
-    padding: 48px 0px 0px 0px;
+    padding: 0px 0px 48px 0px;
 }
 
 .indicator-red {
@@ -74,6 +93,15 @@
         border-radius: 8px 8px 0px 0px;
         border: 1px solid rgba(198,203,222,.45);
         border-bottom: 0px;
-        /*box-shadow: 0px 0px 8px 0px rgba(198,203,222,.45);*/
     }
+}
+
+.history_area .buttons {
+    height: 100%;
+}
+
+.buttons .button.right {
+    position: absolute;
+    top: calc(50% - 16px);
+    right: 0px;
 }
