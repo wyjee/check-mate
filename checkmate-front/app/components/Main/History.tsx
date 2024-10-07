@@ -1,24 +1,40 @@
 'use client'
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import {createHTMLWithDiff} from '@/app/lib/CreateHtmlWithDiff'
-import {IHistory} from '@/app/types/History';
+import {IHistory, IPagination} from '@/app/types/History';
+import Pagination from "@/app/components/Shared/Pagination";
 import './History.css'
 
-const History = ({history, getHistory}: {history: IHistory[]; getHistory: ()=>void; }) => {
+const PAGINATION_MAX_ITEMS = 10;
+
+const History = ({history, getHistory, pagination}: {history: IHistory[]; getHistory: (page: number | undefined)=>void; pagination: IPagination}) => {
+    const pages = useMemo(() => {
+        return Math.ceil(pagination.count/PAGINATION_MAX_ITEMS);
+    }, [pagination]);
+
+    const page = useMemo(() => {
+        return pages
+    }, []);
+
+
     const handleDelete = (id: number)=> async ()=> {
         try {
             await axios.delete(`http://localhost:8000/history/${id}`);
-            await getHistory();
+            await getHistory(1);
         } catch (error) {
             console.error(`[ERROR] ${error}`);
         }
     }
 
+    const handleClickPage = (idx: number) => {
+        getHistory(idx)
+    }
+
     useEffect(() => {
-        getHistory()
+        getHistory(1)
     }, []);
 
     return (
@@ -26,8 +42,8 @@ const History = ({history, getHistory}: {history: IHistory[]; getHistory: ()=>vo
             <div className={'tab'}>History</div>
             <div className={'history_area'}>
                 <div className={'info_box'}>
-                    <span className={'indicator-red'}>deleted</span>
-                    <span className={'indicator-green'}>replaced or added</span>
+                    <span className={'indicator-red'}>삭제됨</span>
+                    <span className={'indicator-green'}>대체되거나 추가됨</span>
                 </div>
                 {history?.map(({id, text, diff, created_at}: IHistory) => {
                     const resultText = `${createHTMLWithDiff(diff)}`
@@ -43,6 +59,7 @@ const History = ({history, getHistory}: {history: IHistory[]; getHistory: ()=>vo
                         </div>
                     </div>)
                 })}
+                {history?.length && <Pagination count={pagination.count} page={page} pages={pages} setPage={handleClickPage} />}
             </div>
         </>
     );

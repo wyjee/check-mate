@@ -1,0 +1,26 @@
+.pagination {
+    width: 100%;
+    padding: 16px 0px 8px 0px;
+}
+
+.pagination_buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.pagination_button {
+    display: block;
+    border: 1px solid rgba(198,203,222,.45);
+    padding: 4px 8px 4px 8px;
+    margin: 0 4px 0 4px;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #161A30;
+    cursor: pointer;
+}
+
+.pagination_button.marked {
+    background: rgb(153, 194, 255);
+}

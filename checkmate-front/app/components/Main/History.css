@@ -22,8 +22,8 @@
     padding: 0px 0px 32px 0px;
 }
 
-.history_box:last-child {
-    border-bottom: none;
+.history_box:has(+ .pagination) {
+    border-bottom: 0px;
 }
 
 .history_box .bottom-left {

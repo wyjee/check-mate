@@ -68,8 +68,6 @@ const Main = ({getHistory}: {getHistory: ()=>void})=> {
         const id: NodeJS.Timeout = setTimeout(()=> {
             setWords(countWords(text));
             clearTimeout(timeoutId);
-            console.log('serWords', setWords,
-                'timeoutId', timeoutId);
         },500)
         setTimeoutId(id);
 
