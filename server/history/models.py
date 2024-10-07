@@ -1,5 +1,4 @@
 from django.db import models
-# Translation history Model
 
 class History(models.Model):
     id = models.AutoField(primary_key=True, null=False)
